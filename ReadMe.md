@@ -87,3 +87,9 @@ install global by npm i -g typescript for version check tsc --v for compiling ts
 and we dont need node modules or npm init so i am deleting all other files
 
 and we are facing error after compilation in ts file so comment in ts file //@ts-ignore and the error will gone
+
+* TS configuration file -- if we have error in our ts file and compile it then it will compile. so we can configure ts file and in this file we can uncomment 
+
+1. tsc --init and you see file will be created
+2. search noEmitOnError in this file and uncomment it. but it will create a js file if we use tsc index.ts so we use only tsc then it will not create the js file or you can use below method
+3. there is also a alternate command while compiling : tsc --noEmitOnError index.ts
