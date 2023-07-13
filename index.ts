@@ -11,3 +11,8 @@ return a+b
 }
 
 console.log(sum(5, 10))
+
+//Anotations
+
+let myFavNumber:number = 10;
+let myName:string = "jarmanjit Singh"

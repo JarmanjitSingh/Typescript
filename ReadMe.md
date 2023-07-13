@@ -93,3 +93,7 @@ and we are facing error after compilation in ts file so comment in ts file //@ts
 1. tsc --init and you see file will be created
 2. search noEmitOnError in this file and uncomment it. but it will create a js file if we use tsc index.ts so we use only tsc then it will not create the js file or you can use below method
 3. there is also a alternate command while compiling : tsc --noEmitOnError index.ts
+
+# Anotation type
+
+type anotation is a way of explicitly specifying the type of a variable, function parameter, or function return value and it is denoted by :
