@@ -97,3 +97,12 @@ and we are facing error after compilation in ts file so comment in ts file //@ts
 # Anotation type
 
 type anotation is a way of explicitly specifying the type of a variable, function parameter, or function return value and it is denoted by :
+
+
+------------------------ Deleting previous files, if your are interested then go the previous commits ------------------------
+
+# TypeScript -- 6PP
+
+1. folder structure i. src that will hold ts file ii. dist folder for converted files of ts into js iii. tsc --init
+2. tsconfig.json > uncomment rootDir and give src path > uncomment outDir and give dist path so that will convert ts files in the src to js files in dist
+3. tsc -w command sets watcher for ts file when we save file it will automatically covert ts into js files
