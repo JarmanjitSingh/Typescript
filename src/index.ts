@@ -6,6 +6,11 @@ let hello; //this will consider any type
 
 userName = "jarmanjit singh";
 
+
+//type alias
+type themeMode = "light" | "dark"
+const mode:themeMode = 'dark'
+
 //other way to write
 let userName2 = <string>"Jarmanjit singh";
 
@@ -125,14 +130,103 @@ func5(12, 54, 54, 979, 65, 32, 65, 54164, 4);
 //simple function with type alias
 type simpleFuncType = (n: number) => number;
 
-const simpleFunc: simpleFuncType = function lol(n){
-    console.log("simple function with type alias", n)
-    return n
-}
-simpleFunc(4)
+const simpleFunc: simpleFuncType = function lol(n) {
+  console.log("simple function with type alias", n);
+  return n;
+};
+simpleFunc(4);
 //OR
-function lol(n: string): string{
-     console.log(n)
-     return n
+function lol(n: string): string {
+  console.log(n);
+  return n;
 }
-lol("lol func")
+lol("lol func");
+
+//////////////// Function with objects
+
+//with type
+type getDataTypes = (products: {
+  name: string;
+  stock: number;
+  price: number;
+  photo: string;
+}) => void;
+
+const getdata: getDataTypes = (products) => {
+  console.log(products);
+};
+
+const productOne = {
+  name: "Macbook",
+  stock: 40,
+  price: 300000,
+  photo: "https://image.png",
+};
+
+//but if here productOne ko bhi hum type se define krna chahe to ta ki isme bhi koi property miss na ho then repetition boht bdh jayegi just like below
+// const productOne: {
+//   name: string;
+//   stock: number;
+//   price: number;
+//   photo: string;
+// } = {
+//   name: "Macbook",
+//   stock: 40,
+//   price: 300000,
+//   photo: "https://image.png",
+// };
+// so we can solve it with interface
+
+getdata(productOne);
+
+//with interface
+interface Product {
+  name: string;
+  stock: number;
+  price: number;
+  photo: string;
+}
+
+//or you can also able to use type
+
+//   type Product = {
+//     name: string;
+//     stock: number;
+//     price: number;
+//     photo: string;
+//   }
+
+type getDataTypes2 = (products: Product) => void;
+
+const getdata2: getDataTypes2 = (products) => {
+  console.log(products);
+};
+
+const productTwo: Product = {
+  name: "Macbook",
+  stock: 40,
+  price: 300000,
+  photo: "https://image.png",
+};
+
+getdata2(productTwo);
+
+
+//---- Apart from question mark there is one more property is readonly if we set readonly then we not able to change it
+
+///////////// Never type 
+
+const errorHandler = ()=> {
+    throw new Error()
+}
+
+
+
+
+
+
+
+
+
+
+

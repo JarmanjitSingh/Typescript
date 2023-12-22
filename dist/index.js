@@ -5,6 +5,7 @@ let userName;
 let authenticated;
 let hello; //this will consider any type
 userName = "jarmanjit singh";
+const mode = 'dark';
 //other way to write
 let userName2 = "Jarmanjit singh";
 //function in ts
@@ -72,3 +73,41 @@ function lol(n) {
     return n;
 }
 lol("lol func");
+const getdata = (products) => {
+    console.log(products);
+};
+const productOne = {
+    name: "Macbook",
+    stock: 40,
+    price: 300000,
+    photo: "https://image.png",
+};
+//but if here productOne ko bhi hum type se define krna chahe to ta ki isme bhi koi property miss na ho then repetition boht bdh jayegi just like below
+// const productOne: {
+//   name: string;
+//   stock: number;
+//   price: number;
+//   photo: string;
+// } = {
+//   name: "Macbook",
+//   stock: 40,
+//   price: 300000,
+//   photo: "https://image.png",
+// };
+// so we can solve it with interface
+getdata(productOne);
+const getdata2 = (products) => {
+    console.log(products);
+};
+const productTwo = {
+    name: "Macbook",
+    stock: 40,
+    price: 300000,
+    photo: "https://image.png",
+};
+getdata2(productTwo);
+//---- Apart from question mark there is one more property is readonly if we set readonly then we not able to change it
+///////////// Never type 
+const errorHandler = () => {
+    throw new Error();
+};
