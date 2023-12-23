@@ -343,3 +343,103 @@ getData3("email")
 let key = "name"
 
 myObj[key as keyof typeof myObj]
+
+
+////////////////////// Types  Utility /////////
+// utility types are predefined generic types that provide common transformations or operations on other types. 
+
+//1. Partial<Type>: Creates a type with all properties of the provided type set to optional.
+interface engineer {
+  name: string,
+  email: string
+}
+
+type engineerOptional = Partial<engineer> // engineerOptional is { name?: string; age?: number; }
+
+//2. Required<Type>: opposite of partial    
+interface PartialPerson {
+  name?: string;
+  age?: number;
+}
+
+type RequiredPerson = Required<PartialPerson>; // RequiredPerson is { name: string; age: number; }
+
+// 3. Readonly<Type>: Creates a type with all properties of the provided type set to readonly.
+type ReadonlyPerson = Readonly<Person>;
+
+//4. Record<Keys, Type>: Creates a type with a set of properties specified by Keys of type Type.
+type Fruit = "apple" | "banana" | "orange";
+type FruitInventory = Record<Fruit, number>;
+
+// FruitInventory is { apple: number; banana: number; orange: number; }
+
+//5. Pick<Type, Keys>: removes all but the specified keys from an object type.
+interface userData1 {
+  name: string;
+  age: number;
+  job: string;
+}
+
+type PersonInfo = Pick<userData1, "name" | "age">; // PersonInfo is { name: string; age: number; }
+
+//6. Omit<Type, Keys>: removes keys from an object type.
+type datawithoutJob = Omit<userData1, "job">;  // PersonWithoutJob is { name: string; age: number; }
+
+
+//////////////////// below three utlity is apply on unions and above on keys
+
+//7. Exclude<Type, ExcludedUnion>: The Exclude utility type creates a type by excluding the members of one type (ExcludedUnion) from another type (Type)
+type MyNumbers = 1 | 2 | 3 | 4 | 5;
+type ExcludeTwoThree = Exclude<MyNumbers, 2 | 3>; // ExcludeTwoThree is 1 | 4 | 5
+
+//8. Extract<Type, Union>: The Extract utility type creates a type by extracting the members of one type (Union) that are assignable to another type (Type).
+type ExtractTwoThree = Extract<MyNumbers, 2 | 3>; // ExtractTwoThree is 2 | 3
+
+//9. NonNullable<Type>: The NonNullable utility type creates a type by excluding null and undefined from the given type (Type).
+type MaybeString = string | null | undefined;
+type NotNullableString = NonNullable<MaybeString>;
+
+//10. Parameters<Type>: The Parameters utility type extracts the parameter types of a function type as a tuple.
+type MyFunction = (name: string, age: number) => void;
+type MyFunctionParameters = Parameters<MyFunction>; // MyFunctionParameters is [string, number]
+
+//if you want from function or if from the type of functino then use above
+const myFunc = (a: number, b: string)=> {}
+type MyFunctionParameters2 = Parameters<typeof myFunc>; // MyFunctionParameters is [string, number]
+
+
+//11. ConstructorParameters<Type>: The ConstructorParameters utility type extracts the parameter types of a constructor function type as a tuple.
+class MyClass {
+  constructor(public name: string,public age: number) {}
+}
+
+type MyClassConstructorParameters = ConstructorParameters<typeof MyClass>; // MyClassConstructorParameters is [string, number]
+
+//12. ReturnType<Type>: The ReturnType utility type extracts the return type of a function type.
+type MyFunction2 = () => number;
+type MyFunctionReturnType = ReturnType<MyFunction2>; // MyFunctionReturnType is number
+
+//13. InstanceType<Type>: same as constructorparameter -- The InstanceType utility type extracts the instance type of a constructor function type.
+type MyClassInstanceType = InstanceType<typeof MyClass>; // MyClassInstanceType is MyClass
+
+const avengers:MyClassInstanceType = {
+  name: "kjasdf",
+  age: 54
+}
+
+
+
+/////////////////////////////// Generics /////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+

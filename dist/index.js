@@ -183,3 +183,17 @@ getData3("email");
 //if we dont know the Person then we can use type assertion to access dynamic values
 let key = "name";
 myObj[key];
+//if you want from function or if from the type of functino then use above
+const myFunc = (a, b) => { };
+//11. ConstructorParameters<Type>: The ConstructorParameters utility type extracts the parameter types of a constructor function type as a tuple.
+class MyClass {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+const avengers = {
+    name: "kjasdf",
+    age: 54
+};
+/////////////////////////////// Generics /////////////////////////////////
