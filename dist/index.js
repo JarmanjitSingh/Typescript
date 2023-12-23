@@ -5,7 +5,7 @@ let userName;
 let authenticated;
 let hello; //this will consider any type
 userName = "jarmanjit singh";
-const mode = 'dark';
+const mode = "dark";
 //other way to write
 let userName2 = "Jarmanjit singh";
 //function in ts
@@ -107,7 +107,39 @@ const productTwo = {
 };
 getdata2(productTwo);
 //---- Apart from question mark there is one more property is readonly if we set readonly then we not able to change it
-///////////// Never type 
+///////////// Never type
 const errorHandler = () => {
     throw new Error();
 };
+/////////// classes in Typescript
+//in ts we have a access modifiers (public, private, protected) to control the visibility of class members. private modifer will be access only in that class we can make it accesable with another function who will return private property
+//protected accessor we can access in the extended class but private still not able to access in extended class
+class player {
+    constructor(height, weight, power) {
+        this.height = height;
+        this.weight = weight;
+        this.power = power;
+        this.getMyHeight = () => this.height;
+    }
+}
+class player2 extends player {
+    constructor(height, weight, power, special) {
+        super(height, weight, power);
+        this.getMyPower = () => this.power; //here we can access power but not height because of private
+        this.special = special;
+    }
+}
+const ronaldo = new player2(5, 80, 350, true);
+console.log(ronaldo.getMyHeight());
+console.log(ronaldo.getMyPower());
+class ProductCls {
+    constructor(name, price, stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.id = String(Math.ceil(Math.random() * 1000));
+        this.getId = () => this.id;
+    }
+}
+const product1 = new ProductCls("Mackbook", 13000, 35);
+console.log(product1.getId());

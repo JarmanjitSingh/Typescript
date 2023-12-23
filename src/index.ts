@@ -6,10 +6,9 @@ let hello; //this will consider any type
 
 userName = "jarmanjit singh";
 
-
 //type alias
-type themeMode = "light" | "dark"
-const mode:themeMode = 'dark'
+type themeMode = "light" | "dark";
+const mode: themeMode = "dark";
 
 //other way to write
 let userName2 = <string>"Jarmanjit singh";
@@ -211,22 +210,69 @@ const productTwo: Product = {
 
 getdata2(productTwo);
 
-
 //---- Apart from question mark there is one more property is readonly if we set readonly then we not able to change it
 
-///////////// Never type 
+///////////// Never type
 
-const errorHandler = ()=> {
-    throw new Error()
+const errorHandler = () => {
+  throw new Error();
+};
+
+/////////// classes in Typescript
+
+//in ts we have a access modifiers (public, private, protected) to control the visibility of class members. private modifer will be access only in that class we can make it accesable with another function who will return private property
+//protected accessor we can access in the extended class but private still not able to access in extended class
+
+class player {
+  constructor(
+    private height: number,
+    public weight: number,
+    protected power: number
+  ) {}
+
+  getMyHeight = () => this.height;
 }
 
+class player2 extends player {
+  special: boolean;
+  constructor(height: number, weight: number, power: number, special: boolean) {
+    super(height, weight, power);
+    this.special = special;
+  }
 
+  getMyPower = () => this.power; //here we can access power but not height because of private
+}
 
+const ronaldo = new player2(5, 80, 350, true);
+console.log(ronaldo.getMyHeight());
+console.log(ronaldo.getMyPower());
 
+//also explore get and set in classes with ts
 
+////// classes with interface
 
+interface ProductType {
+  name: string;
+  price: number;
+  stock: number;
+  offer?: boolean;
+}
 
+interface GetIDF {
+  getId: () => string;
+}
 
+class ProductCls implements ProductType, GetIDF {
+  private id: string = String(Math.ceil(Math.random() * 1000));
 
+  constructor(
+    public name: string,
+    public price: number,
+    public stock: number
+  ) {}
 
+  getId = () => this.id
+}
 
+const product1  = new ProductCls("Mackbook", 13000, 35)
+console.log(product1.getId())
