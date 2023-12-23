@@ -271,8 +271,75 @@ class ProductCls implements ProductType, GetIDF {
     public stock: number
   ) {}
 
-  getId = () => this.id
+  getId = () => this.id;
 }
 
-const product1  = new ProductCls("Mackbook", 13000, 35)
-console.log(product1.getId())
+const product1 = new ProductCls("Mackbook", 13000, 35);
+console.log(product1.getId());
+
+////////////////// Type Assertion
+//Type assertion in TypeScript is a way to tell the compiler that you know more about the type of a value than it does
+//like if we access the dom element of button and ts file is not know the button is exist or not because ts in not compiled yet in js so we can override with two methods "as" keyword or angle bracket
+
+const btn = document.getElementById("btn") as HTMLElement;
+// const btn = <HTMLElement> document.getElementById("btn");
+// const btn = document.getElementById("btn")!; that means not null kuch v ho skda pr null ni houga
+
+//btn.onclick
+
+//in case of other elements who have its own properties so ona vich sanu specifically htmlelement override krna pena for eg
+
+const img = document.getElementById("imgTag") as HTMLImageElement;
+//img.src
+
+//if we can do it with query selector with tag name then it will know the src method on img tag is exist
+
+const img2 = document.querySelector("img")!;
+//img2.src
+
+const myform = document.getElementById("myForm") as HTMLFormElement;
+const inputEle = document.querySelector("#myForm > input") as HTMLInputElement;
+
+myform.onsubmit = (e: SubmitEvent) => {
+  e.preventDefault();
+  const inputNumber = Number(inputEle.value);
+  console.log(typeof inputNumber);
+
+  const h2 = document.createElement("h2");
+  h2.textContent = String(inputNumber + 20);
+
+  const body = document.querySelector("body")!;
+  body.append(h2);
+};
+
+/////////// key of -- is used for dynamic property access
+
+interface Person {
+  name: string;
+  email: string;
+}
+
+const myObj: Person = {
+  name: "Jarmanjit Singh",
+  email: "jarmanjits176@mail.com",
+};
+
+
+//Below function gives an error because key kuch v ho skdi aa pr myObj de vicho bs name jn email e access kr skde aa 
+// const getData = (key: string): string => {
+//   return myObj[key]
+// };
+
+
+const getData3 = (key: keyof Person): string=>{
+return myObj[key]
+}
+
+getData3("email")
+
+//using type assertion 
+//if we dont know the Person then we can use type assertion to access dynamic values
+
+let key = "name"
+
+myObj[key as keyof typeof myObj]
