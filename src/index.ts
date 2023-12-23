@@ -324,39 +324,36 @@ const myObj: Person = {
   email: "jarmanjits176@mail.com",
 };
 
-
-//Below function gives an error because key kuch v ho skdi aa pr myObj de vicho bs name jn email e access kr skde aa 
+//Below function gives an error because key kuch v ho skdi aa pr myObj de vicho bs name jn email e access kr skde aa
 // const getData = (key: string): string => {
 //   return myObj[key]
 // };
 
+const getData3 = (key: keyof Person): string => {
+  return myObj[key];
+};
 
-const getData3 = (key: keyof Person): string=>{
-return myObj[key]
-}
+getData3("email");
 
-getData3("email")
-
-//using type assertion 
+//using type assertion
 //if we dont know the Person then we can use type assertion to access dynamic values
 
-let key = "name"
+let key = "name";
 
-myObj[key as keyof typeof myObj]
-
+myObj[key as keyof typeof myObj];
 
 ////////////////////// Types  Utility /////////
-// utility types are predefined generic types that provide common transformations or operations on other types. 
+// utility types are predefined generic types that provide common transformations or operations on other types.
 
 //1. Partial<Type>: Creates a type with all properties of the provided type set to optional.
 interface engineer {
-  name: string,
-  email: string
+  name: string;
+  email: string;
 }
 
-type engineerOptional = Partial<engineer> // engineerOptional is { name?: string; age?: number; }
+type engineerOptional = Partial<engineer>; // engineerOptional is { name?: string; age?: number; }
 
-//2. Required<Type>: opposite of partial    
+//2. Required<Type>: opposite of partial
 interface PartialPerson {
   name?: string;
   age?: number;
@@ -383,8 +380,7 @@ interface userData1 {
 type PersonInfo = Pick<userData1, "name" | "age">; // PersonInfo is { name: string; age: number; }
 
 //6. Omit<Type, Keys>: removes keys from an object type.
-type datawithoutJob = Omit<userData1, "job">;  // PersonWithoutJob is { name: string; age: number; }
-
+type datawithoutJob = Omit<userData1, "job">; // PersonWithoutJob is { name: string; age: number; }
 
 //////////////////// below three utlity is apply on unions and above on keys
 
@@ -404,13 +400,12 @@ type MyFunction = (name: string, age: number) => void;
 type MyFunctionParameters = Parameters<MyFunction>; // MyFunctionParameters is [string, number]
 
 //if you want from function or if from the type of functino then use above
-const myFunc = (a: number, b: string)=> {}
+const myFunc = (a: number, b: string) => {};
 type MyFunctionParameters2 = Parameters<typeof myFunc>; // MyFunctionParameters is [string, number]
-
 
 //11. ConstructorParameters<Type>: The ConstructorParameters utility type extracts the parameter types of a constructor function type as a tuple.
 class MyClass {
-  constructor(public name: string,public age: number) {}
+  constructor(public name: string, public age: number) {}
 }
 
 type MyClassConstructorParameters = ConstructorParameters<typeof MyClass>; // MyClassConstructorParameters is [string, number]
@@ -422,24 +417,126 @@ type MyFunctionReturnType = ReturnType<MyFunction2>; // MyFunctionReturnType is 
 //13. InstanceType<Type>: same as constructorparameter -- The InstanceType utility type extracts the instance type of a constructor function type.
 type MyClassInstanceType = InstanceType<typeof MyClass>; // MyClassInstanceType is MyClass
 
-const avengers:MyClassInstanceType = {
+const avengers: MyClassInstanceType = {
   name: "kjasdf",
-  age: 54
-}
-
-
+  age: 54,
+};
 
 /////////////////////////////// Generics /////////////////////////////////
 
+//Generic - generic apa use krde aa jdo apa nu pta nhi ki parameter keri type da houga udo fr Generic function bnane aa te oo ohi type le lende aa jeri apa paas krde aa
+
+// Using T (a type parameter) to make the function generic
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+// Calling the generic function with different types
+let result1 = identity(5); // T is inferred as number
+let result2 = identity("hello"); // T is inferred as string
+
+///// With interface or type
+
+interface People {
+  name: string;
+  age: number;
+}
+
+function human<T>(arg: T): T {
+  return arg;
+}
+
+const people1 = {
+  name: "jarman",
+  age: 23,
+};
+
+const ans = human(people1); //this is one way
+const ans1 = human<People>(people1); //this is the best way
+
+//another example
+interface Box<T> {
+  value: T;
+}
+
+let box1: Box<number> = { value: 42 };
+let box2: Box<string> = { value: "hello" };
+
+// two parameters function
+
+function twoArgFunc<T, U>(a: T, b: U): { a: T; b: U } {
+  return { a, b };
+}
+
+const ans2 = twoArgFunc<number, string>(12, "singh");
+
+/////// Constraints on Generics  or extends -- mtlb U de vich T diaa properties te honiaa e chahidiaa aa ode to ilava v ho skdia aa
+
+type Job1 = {
+  position: string,
+  salary: number
+}
+
+type Job2 = {
+  position: string,
+  salary: number,
+  mnc: boolean
+}
+
+const vacancy1:Job1 = {
+  position: "Software Engineer",
+  salary: 15
+}
+
+const vacancy2: Job2 = {
+  position: "Data Analyst",
+  salary: 14,
+  mnc: true
+}
+
+function extendedFunction<T, U extends T>(a: T, b: U): { a: T; b: U } {
+  return { a, b };
+}
+
+const ans3 = extendedFunction<Job1, Job2>(vacancy1, vacancy2)
+
+//Another important generic example
+
+type Humans = {
+  name: string,
+  age: number
+}
+
+const canadaPopulation: Humans[] = [
+  {
+    name: "john",
+    age: 34
+  },
+  {
+    name: "Smith",
+    age: 24
+  },
+  {
+    name: "rich",
+    age: 58
+  },
+  {
+    name: "rock",
+    age: 40
+  }
+]
+
+//this will be a basic logic of function lets convert it into a generic function
+// function filterByPeoples = (arr: [], property: string, value: any) =>{
+// arr.filter(item=> item[property] === value)
+// }
 
 
+//T means array of objects T is for type , T type of array T[] and U is the key of That Type object so the value is T[U]
 
+const filterByPeoples = <T, U extends keyof T> (arr: T[], property: U, value: T[U]): T[] =>{
+  return arr.filter(item=> item[property] === value)
+}
 
-
-
-
-
-
-
-
-
+const filteredHuman = filterByPeoples(canadaPopulation, "name", "john")
+console.log(filteredHuman)

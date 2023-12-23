@@ -171,7 +171,7 @@ const myObj = {
     name: "Jarmanjit Singh",
     email: "jarmanjits176@mail.com",
 };
-//Below function gives an error because key kuch v ho skdi aa pr myObj de vicho bs name jn email e access kr skde aa 
+//Below function gives an error because key kuch v ho skdi aa pr myObj de vicho bs name jn email e access kr skde aa
 // const getData = (key: string): string => {
 //   return myObj[key]
 // };
@@ -179,7 +179,7 @@ const getData3 = (key) => {
     return myObj[key];
 };
 getData3("email");
-//using type assertion 
+//using type assertion
 //if we dont know the Person then we can use type assertion to access dynamic values
 let key = "name";
 myObj[key];
@@ -194,6 +194,71 @@ class MyClass {
 }
 const avengers = {
     name: "kjasdf",
-    age: 54
+    age: 54,
 };
 /////////////////////////////// Generics /////////////////////////////////
+//Generic - generic apa use krde aa jdo apa nu pta nhi ki parameter keri type da houga udo fr Generic function bnane aa te oo ohi type le lende aa jeri apa paas krde aa
+// Using T (a type parameter) to make the function generic
+function identity(arg) {
+    return arg;
+}
+// Calling the generic function with different types
+let result1 = identity(5); // T is inferred as number
+let result2 = identity("hello"); // T is inferred as string
+function human(arg) {
+    return arg;
+}
+const people1 = {
+    name: "jarman",
+    age: 23,
+};
+const ans = human(people1); //this is one way
+const ans1 = human(people1); //this is the best way
+let box1 = { value: 42 };
+let box2 = { value: "hello" };
+// two parameters function
+function twoArgFunc(a, b) {
+    return { a, b };
+}
+const ans2 = twoArgFunc(12, "singh");
+const vacancy1 = {
+    position: "Software Engineer",
+    salary: 15
+};
+const vacancy2 = {
+    position: "Data Analyst",
+    salary: 14,
+    mnc: true
+};
+function extendedFunction(a, b) {
+    return { a, b };
+}
+const ans3 = extendedFunction(vacancy1, vacancy2);
+const canadaPopulation = [
+    {
+        name: "john",
+        age: 34
+    },
+    {
+        name: "Smith",
+        age: 24
+    },
+    {
+        name: "rich",
+        age: 58
+    },
+    {
+        name: "rock",
+        age: 40
+    }
+];
+//this will be a basic logic of function lets convert it into a generic function
+// function filterByPeoples = (arr: [], property: string, value: any) =>{
+// arr.filter(item=> item[property] === value)
+// }
+//T means array of objects T is for type , T type of array T[] and U is the key of That Type object so the value is T[U]
+const filterByPeoples = (arr, property, value) => {
+    return arr.filter(item => item[property] === value);
+};
+const filteredHuman = filterByPeoples(canadaPopulation, "name", "john");
+console.log(filteredHuman);
