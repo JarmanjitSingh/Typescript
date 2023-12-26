@@ -106,3 +106,25 @@ type anotation is a way of explicitly specifying the type of a variable, functio
 1. folder structure i. src that will hold ts file ii. dist folder for converted files of ts into js iii. tsc --init
 2. tsconfig.json > uncomment rootDir and give src path > uncomment outDir and give dist path so that will convert ts files in the src to js files in dist
 3. tsc -w command sets watcher for ts file when we save file it will automatically covert ts into js files
+
+
+# Node TS
+1. npm init
+2. npx tsc -init
+3. tsconfig.json > target = 2020 > search "module"  change it to NodeNext >   "rootDir": "./src" >  "outDir": "./dist",
+4. install types of famous pacakges. install types of express and node as dev dependencies. npm i @types/express @types/node --save-dev
+5. npm i typescript nodemon --save-dev. typescript is for if globally not installed
+6. tsc in terminal to create the dist folder and js files and to run the server run command in terminal node .\dist\app.js
+7. add scripts so in one terminal run watch command to watch ts files and in second terminal run dev command for nodemon 
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "watch": "tsc -w",
+    "dev": "nodemon dist/app.js"
+  },
+8. second way to run parallel both install new package - npm i concurrently --save-dev
+ "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/app.js\""
+  },
